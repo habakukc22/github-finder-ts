@@ -4,7 +4,7 @@ import AlertContext from "../../context/alert/AlertContext";
 import { searchUsers } from "../../context/github/GithubActions";
 
 function UserSearch() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
   const { users, dispatch } = useContext(GithubContext);
   const { setAlert } = useContext(AlertContext);
 
@@ -21,8 +21,6 @@ function UserSearch() {
       dispatch({ type: "SET_LOADING" });
 
       const users = await searchUsers(text);
-
-      console.log(users);
 
       dispatch({ type: "GET_USERS", payload: users });
 

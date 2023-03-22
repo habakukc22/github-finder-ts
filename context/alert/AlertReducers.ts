@@ -1,9 +1,11 @@
+type alertState = {
+  msg: string;
+  type: string;
+};
+
 type Action = {
   type: string;
-  payload?: {
-    msg: string;
-    type: string;
-  };
+  payload?: alertState;
 };
 
 const alertReducer = (state: any, action: Action) => {
@@ -11,7 +13,10 @@ const alertReducer = (state: any, action: Action) => {
     case "SET_ALERT":
       return action.payload;
     case "REMOVE_ALERT":
-      return null;
+      return {
+        ...state,
+        type: "DEFAULT",
+      };
     default:
       return state;
   }

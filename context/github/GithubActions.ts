@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = process.env.NEXT_PUBLIC_GITHUB_URL;
+const url = process.env.NEXT_PUBLIC_GITHUB_URL; //In order to use envoriment variables here we need to include the prefix NEXT_PUBLIC_
 const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
 
 const github = axios.create({
@@ -7,13 +7,12 @@ const github = axios.create({
   headers: { Authorization: `token ${token}` },
 });
 
-export const searchUsers = async (text: any) => {
+export const searchUsers = async (text: string) => {
   const params = new URLSearchParams({
     q: text,
   });
 
   const response = await github.get(`/search/users?${params}`);
-  // console.log(response.data.items);
 
   return response.data.items;
 };
@@ -26,7 +25,5 @@ export const getUserAndRepos = async (login: string | string[] | undefined) => {
     github.get(`/users/${login}/repos?${params}`),
   ]);
 
-  console.log(user.data);
-  console.log(repos.data);
   return { user: user.data, repos: repos.data };
 };
